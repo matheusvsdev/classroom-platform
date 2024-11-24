@@ -2,6 +2,8 @@ package com.matheusvsdev.classroom_platform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.Objects;
+
 @Entity
 @Table(name = "tb_role")
 public class RoleEntity {
@@ -34,5 +36,19 @@ public class RoleEntity {
 
     public void setAuthority(String authority) {
         this.authority = authority;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        if (this == object) return true;
+        if (object == null || getClass() != object.getClass()) return false;
+
+        RoleEntity that = (RoleEntity) object;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id);
     }
 }
