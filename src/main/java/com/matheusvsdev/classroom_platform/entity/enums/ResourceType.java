@@ -1,4 +1,4 @@
-package com.matheusvsdev.classroom_platform.entity;
+package com.matheusvsdev.classroom_platform.entity.enums;
 
 public enum ResourceType {
     LESSON_ONLY,

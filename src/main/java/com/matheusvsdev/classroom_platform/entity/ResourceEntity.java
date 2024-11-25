@@ -1,5 +1,6 @@
 package com.matheusvsdev.classroom_platform.entity;
 
+import com.matheusvsdev.classroom_platform.entity.enums.ResourceType;
 import jakarta.persistence.*;
 
 import java.util.Objects;
