@@ -6,7 +6,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "tb_lesson")
-public class LessonEntity {
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class LessonEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
