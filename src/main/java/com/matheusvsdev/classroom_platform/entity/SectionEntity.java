@@ -1,4 +1,4 @@
-package com.matheusvsdev.classroom_platform;
+package com.matheusvsdev.classroom_platform.entity;
 
 import jakarta.persistence.*;
 
