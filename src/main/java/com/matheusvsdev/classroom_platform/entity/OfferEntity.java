@@ -3,6 +3,8 @@ package com.matheusvsdev.classroom_platform.entity;
 import jakarta.persistence.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,21 +14,33 @@ public class OfferEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String edition;
 
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant startMoment;
 
+    @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant endMoment;
+
+    @ManyToOne
+    @JoinColumn(name = "course_id")
+    private CourseEntity course;
+
+    @OneToMany(mappedBy = "offer")
+    private List<ResourceEntity> resources = new ArrayList<>();
+
+    @OneToMany(mappedBy = "offer")
+    private List<TopicEntity> topics = new ArrayList<>();
 
     public OfferEntity() {
     }
 
-    public OfferEntity(Long id, String edition, Instant startMoment, Instant endMoment) {
+    public OfferEntity(Long id, String edition, Instant startMoment, Instant endMoment, CourseEntity course) {
         this.id = id;
         this.edition = edition;
         this.startMoment = startMoment;
         this.endMoment = endMoment;
+        this.course = course;
     }
 
     public Long getId() {
@@ -59,6 +73,22 @@ public class OfferEntity {
 
     public void setEndMoment(Instant endMoment) {
         this.endMoment = endMoment;
+    }
+
+    public CourseEntity getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseEntity course) {
+        this.course = course;
+    }
+
+    public List<ResourceEntity> getResources() {
+        return resources;
+    }
+
+    public List<TopicEntity> getTopics() {
+        return topics;
     }
 
     @Override
