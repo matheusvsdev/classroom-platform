@@ -2,9 +2,7 @@ package com.matheusvsdev.classroom_platform.entity;
 
 import jakarta.persistence.*;
 
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "tb_user")
@@ -20,17 +18,23 @@ public class UserEntity {
 
     private String password;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "tb_user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new HashSet<>();
+
+    @OneToMany(mappedBy = "user")
+    private List<NotificationEntity> notifications = new ArrayList<>();
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String name, String email, String password, Set<RoleEntity> roles) {
+    public UserEntity(Long id, String name, String email, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.password = password;
-        this.roles = roles;
     }
 
     public Long getId() {
@@ -69,8 +73,8 @@ public class UserEntity {
         return roles;
     }
 
-    public void setRoles(Set<RoleEntity> roles) {
-        this.roles = roles;
+    public List<NotificationEntity> getNotifications() {
+        return notifications;
     }
 
     @Override
