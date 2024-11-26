@@ -3,14 +3,20 @@ package com.matheusvsdev.classroom_platform.entity.pk;
 import com.matheusvsdev.classroom_platform.entity.OfferEntity;
 import com.matheusvsdev.classroom_platform.entity.UserEntity;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.util.Objects;
 
 @Embeddable
 public class EnrollmentPK {
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
     private OfferEntity offer;
 
     public EnrollmentPK() {
