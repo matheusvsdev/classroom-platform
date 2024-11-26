@@ -11,24 +11,30 @@ public class SectionEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private String description;
-
     private Integer position;
-
     private String imgUri;
+
+    @ManyToOne
+    @JoinColumn(name = "resource_id")
+    private ResourceEntity resource;
+
+    @ManyToOne
+    @JoinColumn(name = "prerequisite_id")
+    private SectionEntity prerequisite;
 
     public SectionEntity() {
     }
 
-    public SectionEntity(String imgUri, Integer position, String description, String title, Long id) {
-        this.imgUri = imgUri;
-        this.position = position;
-        this.description = description;
-        this.title = title;
+    public SectionEntity(Long id, String title, String description, Integer position, String imgUri, ResourceEntity resource, SectionEntity prerequisite) {
         this.id = id;
+        this.title = title;
+        this.description = description;
+        this.position = position;
+        this.imgUri = imgUri;
+        this.resource = resource;
+        this.prerequisite = prerequisite;
     }
 
     public Long getId() {
@@ -69,6 +75,22 @@ public class SectionEntity {
 
     public void setImgUri(String imgUri) {
         this.imgUri = imgUri;
+    }
+
+    public ResourceEntity getResource() {
+        return resource;
+    }
+
+    public void setResource(ResourceEntity resource) {
+        this.resource = resource;
+    }
+
+    public SectionEntity getPrerequisite() {
+        return prerequisite;
+    }
+
+    public void setPrerequisite(SectionEntity prerequisite) {
+        this.prerequisite = prerequisite;
     }
 
     @Override
