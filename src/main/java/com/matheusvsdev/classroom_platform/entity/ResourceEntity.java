@@ -3,6 +3,8 @@ package com.matheusvsdev.classroom_platform.entity;
 import com.matheusvsdev.classroom_platform.entity.enums.ResourceType;
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -12,27 +14,30 @@ public class ResourceEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private String description;
-
     private Integer position;
-
     private String imgUri;
-
     private ResourceType type;
+
+    @ManyToOne
+    @JoinColumn(name = "offer_id")
+    private OfferEntity offer;
+
+    @OneToMany(mappedBy = "resource")
+    private List<SectionEntity> setions = new ArrayList<>();
 
     public ResourceEntity() {
     }
 
-    public ResourceEntity(Long id, String title, String description, Integer position, String imgUri, ResourceType type) {
+    public ResourceEntity(Long id, String title, String description, Integer position, String imgUri, ResourceType type, OfferEntity offer) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.position = position;
         this.imgUri = imgUri;
         this.type = type;
+        this.offer = offer;
     }
 
     public Long getId() {
@@ -81,6 +86,18 @@ public class ResourceEntity {
 
     public void setType(ResourceType type) {
         this.type = type;
+    }
+
+    public OfferEntity getOffer() {
+        return offer;
+    }
+
+    public void setOffer(OfferEntity offer) {
+        this.offer = offer;
+    }
+
+    public List<SectionEntity> getSetions() {
+        return setions;
     }
 
     @Override
