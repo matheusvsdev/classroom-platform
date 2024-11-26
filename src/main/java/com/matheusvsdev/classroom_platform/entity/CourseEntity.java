@@ -2,6 +2,8 @@ package com.matheusvsdev.classroom_platform.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -11,12 +13,12 @@ public class CourseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String name;
-
     private String imgUri;
-
     private String imgGrayUri;
+
+    @OneToMany(mappedBy = "course")
+    private List<OfferEntity> offers = new ArrayList<>();
 
     public CourseEntity() {
     }
@@ -58,6 +60,10 @@ public class CourseEntity {
 
     public void setImgGrayUri(String imgGrayUri) {
         this.imgGrayUri = imgGrayUri;
+    }
+
+    public List<OfferEntity> getOffers() {
+        return offers;
     }
 
     @Override
